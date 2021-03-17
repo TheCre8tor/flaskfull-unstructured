@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+
+{% block title %} Login {% endblock %}
+
+{% block body %}  
+    <h1>Login</h1>
+
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+        {% for message in messages %}
+
+        <div class="alert alert-warning alert-dismissible fade show" role="alert">
+            {{ message }}
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+              <span aria-hidden="true">X</span>
+            </button>
+        </div>
+        
+        {% endfor %}
+        {% endif %}
+    {% endwith %}
+
+    <form action="" method="post" novalidate>
+        {{ form.csrf_token }}
+        <p>
+            {{ form.username.label }} <br /> 
+            {{ form.username(size=20) }} <br />
+
+            <!-- Validation Error -->
+            {% for error in form.username.errors %}
+                <span style="color: red">{{ error }}</span>
+            {% endfor %}
+        </p>
+
+        <p>
+            {{ form.password.label }} <br /> 
+            {{ form.password(size=20) }} <br />
+
+            <!-- Validation Error -->
+            {% for error in form.password.errors %}
+                <span style="color: red">{{ error }}</span>
+            {% endfor %}
+        </p>
+    
+        <button type="submit" class="btn btn-success">Login</button>
+        
+    </form>
+{% endblock %}
